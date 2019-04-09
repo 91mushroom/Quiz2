@@ -3,6 +3,9 @@ package cn._91mushroom.Q3;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -14,7 +17,19 @@ public class XML2JavaBeanUtils {
 	 * @param doc
 	 * @return
 	 */
-	public static Project XML2JavaBeanByDOM(Document doc) {
+	public static Project XML2JavaBeanByDOM(String filename) {
+		
+		Document doc = null;
+
+		DocumentBuilderFactory docbf = DocumentBuilderFactory.newInstance();
+		try {
+
+			DocumentBuilder docb = docbf.newDocumentBuilder();
+			doc = docb.parse(filename);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		
 		Project project = new Project();
 		
@@ -60,5 +75,14 @@ public class XML2JavaBeanUtils {
 		
 		
 		return project;
+	}
+	
+	/**
+	 * SAX方式解析
+	 * @param doc
+	 * @return
+	 */
+	public static Project XML2JavaBeanBySAX(Document doc) {
+		return null;
 	}
 }
