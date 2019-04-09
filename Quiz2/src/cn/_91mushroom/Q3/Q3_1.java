@@ -8,38 +8,29 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 public class Q3_1 {
-	//https://github.com/hengyunabc/executable-embeded-tomcat-sample/blob/master/pom.xml
+	// https://github.com/hengyunabc/executable-embeded-tomcat-sample/blob/master/pom.xml
 	public static Document parseXml(String filename) {
-		
+
 		Document doc = null;
-		
+
 		DocumentBuilderFactory docbf = DocumentBuilderFactory.newInstance();
-		 try {
-			 
+		try {
+
 			DocumentBuilder docb = docbf.newDocumentBuilder();
 			doc = docb.parse(filename);
-			
+
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		 return doc;
+		return doc;
 	}
-	
+
 	public static void main(String[] args) {
-		
+
+		//dom解析方式
 		Document doc = parseXml("pom.xml");
-		
-		NodeList nodeList = doc.getElementsByTagName("dependencies");
-		
-		for (int i = 0; i < nodeList.getLength(); i++) {
-			Node node = nodeList.item(i);
-			NodeList childNodeList = node.getChildNodes();
-			
-			for(int  j = 0; j < childNodeList.getLength(); j++) {
-				Node childNode = childNodeList.item(j);
-				childNode.getChildNodes();
-			}
-		}
-		
+
+		Project project = XML2JavaBeanUtils.XML2JavaBeanByDOM(doc);
+		System.out.println(project);
 	}
 }

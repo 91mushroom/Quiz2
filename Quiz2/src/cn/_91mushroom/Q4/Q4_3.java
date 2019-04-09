@@ -7,6 +7,7 @@ import java.util.Random;
 
 /**
  * 向数据库中插入100万条数据
+ * 用时66秒
  * @author H.H
  *
  */
