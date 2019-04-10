@@ -5,12 +5,14 @@ import java.util.List;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class XML2JavaBeanUtils {
+public class XMLUtils {
 	
 	/**
 	 * dom解析方式
@@ -82,7 +84,19 @@ public class XML2JavaBeanUtils {
 	 * @param doc
 	 * @return
 	 */
-	public static Project XML2JavaBeanBySAX(Document doc) {
-		return null;
+	public static Project XML2JavaBeanBySAX(String filename) {
+		
+		SAXParserFactory saxParserFactory = SAXParserFactory.newInstance();
+		SAXXmlParseHandler saxXmlParseHandler = new SAXXmlParseHandler();
+		try {
+			
+			SAXParser saxParser = saxParserFactory.newSAXParser();
+			
+			saxParser.parse(filename, saxXmlParseHandler);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return saxXmlParseHandler.getResult();
 	}
 }

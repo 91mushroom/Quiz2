@@ -12,7 +12,7 @@ import java.io.OutputStream;
 public class MainFunction {
 	
 	/**
-	 * serialize序列化方法
+	 * 序列化方法
 	 * @param outPutFile
 	 * @param object
 	 */
@@ -53,7 +53,7 @@ public class MainFunction {
 	}
 	
 	/**
-	 * serialize反序列化方法
+	 * 反序列化方法
 	 * @param file
 	 * @return
 	 */
