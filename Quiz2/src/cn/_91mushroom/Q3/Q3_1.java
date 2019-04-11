@@ -18,12 +18,12 @@ public class Q3_1 {
 		System.out.println(saxProject);
 		
 		//jdom解析方式
-		System.out.println("jdom解析方式");
+		System.out.println("JDOM解析方式");
 		Project jdomProject = XMLUtils.XML2JavaBeanByJDOM(XML_FILE_NAME);
 		System.out.println(jdomProject);
 		
 		//dom4j解析方式
-		System.out.println("dom4j解析方式");
+		System.out.println("DOM4j解析方式");
 		Project dom4jProject = XMLUtils.XML2JavaBeanByDOM4j(XML_FILE_NAME);
 		System.out.println(dom4jProject);
 		
