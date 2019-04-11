@@ -11,7 +11,9 @@ public class SAXXmlParseHandler extends DefaultHandler {
    
 	private Project project;
 	private String currentElement;
+	private boolean isDependencies;
 	private List<Dependency> dependencies;
+	private Dependency dependency;
 	
 	@Override
 	public void startDocument() throws SAXException {
@@ -20,19 +22,24 @@ public class SAXXmlParseHandler extends DefaultHandler {
 	    
 	    project = new Project();
 	    dependencies = new ArrayList<>();
-	    System.out.println("xml解析开始");
 	}
 	
 	@Override
     public void endDocument() throws SAXException {
         super.endDocument();
-        System.out.println("xml解析完成");
+        project.setDependencies(dependencies);
     }
 	
     @Override
     public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
         
     	currentElement = qName.trim();
+    	
+    	
+    	if(currentElement.equals("dependencies")) {
+    		isDependencies = true;
+    	}
+    	
         
     }
     
@@ -59,10 +66,14 @@ public class SAXXmlParseHandler extends DefaultHandler {
     		
     	case CurrentStageValue.GROUP_ID:
     		if(!"".equals(context)) {
-    			if (project.getGroupId() == null) {
-    				project.setGroupId(context);
+    			if (! isDependencies) {
+    				if (project.getGroupId() == null) {
+    				    project.setGroupId(context);
+    				}
     			}else {
-    				
+    				dependency = new Dependency();
+    				dependencies.add(dependency);
+    				dependency.setGroupId(context);
     			}
     		    
     		}
@@ -70,23 +81,32 @@ public class SAXXmlParseHandler extends DefaultHandler {
     		
     	case CurrentStageValue.ARTIFACT_ID:
     		if(!"".equals(context)) {
-    			if (project.getArtifactId() == null) {
-    				project.setArtifactId(context);
+    			if (! isDependencies) {
+    				if (project.getArtifactId() == null) {
+    					project.setArtifactId(context);
+    				}
     			}else {
-    				
+    				dependency.setArtifactId(context);
     			}
     		}
     		break;
     		
     	case CurrentStageValue.VERSION:
     		if(!"".equals(context)) {
-    			if (project.getVersion() == null) {
-    				project.setVersion(context);
+    			if (! isDependencies) {
+    				if (project.getVersion() == null) {
+    				    project.setVersion(context);
+    				}
     			}else {
-    				
+    				dependency.setVersion(context);
     			}
     		}
     		break;
+    	
+    	case CurrentStageValue.SCOPE:
+    		if(!"".equals(context)) {
+    	        dependency.setScope(context);
+    		}
     		
     	default:
     		break;
